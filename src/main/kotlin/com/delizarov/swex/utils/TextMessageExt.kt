@@ -12,10 +12,10 @@ private val negativeAnswers = listOf(
 
 val String.isPositive: Boolean
     get() {
-        return this in positiveAnswers
+        return this.lowercase() in positiveAnswers
     }
 
 val String.isNegative: Boolean
     get() {
-        return this in negativeAnswers
+        return this.lowercase() in negativeAnswers
     }

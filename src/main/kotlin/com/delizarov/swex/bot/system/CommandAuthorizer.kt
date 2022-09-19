@@ -1,7 +1,6 @@
 package com.delizarov.swex.bot.system
 
-import com.delizarov.swex.bot.domain.repository.AdminRepository
-import com.github.kotlintelegrambot.dispatcher.handlers.CommandHandlerEnvironment
+import com.delizarov.swex.bot.features.admins.domain.repositories.AdminRepository
 import com.github.kotlintelegrambot.entities.ChatId
 
 class CommandAuthorizer(
@@ -14,7 +13,7 @@ class CommandAuthorizer(
     ): Boolean {
         return when (command) {
             SupportedCommand.AddNewUser, SupportedCommand.GetUserList,
-            SupportedCommand.RemoveUser -> checkIfUserIsAdmin(chatId)
+            SupportedCommand.RemoveUser, SupportedCommand.FindUser -> checkIfUserIsAdmin(chatId)
             else -> false
         }
     }

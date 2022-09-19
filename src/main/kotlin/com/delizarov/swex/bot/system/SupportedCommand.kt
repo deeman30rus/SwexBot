@@ -4,5 +4,6 @@ enum class SupportedCommand {
 
     AddNewUser,
     GetUserList,
+    FindUser,
     RemoveUser;
 }

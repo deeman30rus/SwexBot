@@ -3,9 +3,11 @@ package com.delizarov.swex.bot.system.pipeline
 import com.delizarov.swex.assertions.assertFalse
 import com.delizarov.swex.bot.system.dialog.DialogProcessor
 import com.github.kotlintelegrambot.Bot
+import com.github.kotlintelegrambot.dispatcher.handlers.CallbackQueryHandlerEnvironment
 import com.github.kotlintelegrambot.dispatcher.handlers.CommandHandlerEnvironment
 import com.github.kotlintelegrambot.dispatcher.handlers.ContactHandlerEnvironment
 import com.github.kotlintelegrambot.dispatcher.handlers.TextHandlerEnvironment
+import com.github.kotlintelegrambot.entities.CallbackQuery
 import com.github.kotlintelegrambot.entities.Message
 
 class Pipeline(
@@ -41,6 +43,13 @@ class Pipeline(
         processMessage(message)
     }
 
+    fun proceed(env: CallbackQueryHandlerEnvironment) {
+        assertFalse(isClosed)
+
+        this._bot = env.bot
+        processInput(env.callbackQuery)
+    }
+
     fun proceed(env: TextHandlerEnvironment) {
         assertFalse(isClosed)
 
@@ -51,8 +60,14 @@ class Pipeline(
         processMessage(message)
     }
 
+    private fun processInput(callbackQuery: CallbackQuery) {
+        val reaction = processor.processInput(callbackQuery)
+
+        reaction.react(bot)
+    }
+
     private fun processMessage(message: Message) {
-        val reaction = processor.process(message, history)
+        val reaction = processor.processMessage(message, history)
 
         reaction.react(bot)
     }

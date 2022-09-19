@@ -1,6 +1,6 @@
 package com.delizarov.swex.bot.system.dialog.reactions.impl
 
-import com.delizarov.swex.bot.system.dialog.reactions.MessageReaction
+import com.delizarov.swex.bot.system.dialog.reactions.BotReaction
 import com.github.kotlintelegrambot.Bot
 import com.github.kotlintelegrambot.entities.ChatId
 import com.github.kotlintelegrambot.entities.InlineKeyboardMarkup
@@ -10,7 +10,7 @@ class KeyboardOptionsReaction(
     private val chatId: ChatId,
     private val text: String,
     private val options: List<Pair<String, String>>,
-): MessageReaction {
+): BotReaction {
 
     override fun react(bot: Bot) {
         val buttonsRow = options.map {
